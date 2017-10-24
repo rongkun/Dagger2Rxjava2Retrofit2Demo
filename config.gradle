@@ -2,15 +2,15 @@
 ext{
     android = [
             compileSdkVersion: 26,
-            buildToolsVersion: "26.0.0",
+            buildToolsVersion: "26.0.2",
             minSdkVersion    : 14,
             targetSdkVersion : 26
     ]
     dependencies = [
-            dagger : "2.10",
+            dagger : "2.11",
             butterknife : "8.6.0"
     ]
 
     //Version
-    supportLibrary = "26.0.1"
+    supportLibrary = "26.1.0"
 }
