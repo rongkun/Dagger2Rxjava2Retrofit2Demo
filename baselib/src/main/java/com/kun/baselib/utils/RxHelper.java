@@ -42,8 +42,8 @@ public class RxHelper {
             @Override
             public Publisher<T> apply(Flowable<T> upstream) {
                 return upstream
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(Schedulers.computation());
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread());
             }
         };
     }

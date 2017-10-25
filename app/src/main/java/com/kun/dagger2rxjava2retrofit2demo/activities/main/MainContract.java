@@ -4,7 +4,7 @@ import com.kun.baselib.base.BaseView;
 import com.kun.dagger2rxjava2retrofit2demo.bean.WeatherResponse;
 
 /**
- * Created by kun on 2017/8/14.
+ * Created by kun on 2017/8/14
  */
 
 public class MainContract {

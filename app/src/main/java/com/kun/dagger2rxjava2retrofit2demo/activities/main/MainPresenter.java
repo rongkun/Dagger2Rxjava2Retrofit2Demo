@@ -9,7 +9,6 @@ import com.kun.dagger2rxjava2retrofit2demo.bean.WeatherResponse;
 import com.kun.dagger2rxjava2retrofit2demo.net.AppNetApi;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-
 import javax.inject.Inject;
 
 /**
