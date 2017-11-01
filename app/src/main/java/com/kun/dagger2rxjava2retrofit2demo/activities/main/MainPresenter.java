@@ -2,7 +2,7 @@ package com.kun.dagger2rxjava2retrofit2demo.activities.main;
 
 import com.kun.baselib.base.BaseDataCache;
 import com.kun.baselib.base.BaseResponse;
-import com.kun.baselib.net.RxSubscriber;
+import com.kun.baselib.net.HttpSubscriber;
 import com.kun.baselib.utils.RxHelper;
 import com.kun.dagger2rxjava2retrofit2demo.base.BasePresent;
 import com.kun.dagger2rxjava2retrofit2demo.bean.WeatherResponse;
@@ -30,7 +30,7 @@ public class MainPresenter extends BasePresent<MainContract.View,ActivityEvent> 
         mApi.getWeather(city)
                 .compose(lifecycleProvider.<BaseResponse<WeatherResponse>>bindToLifecycle())
                 .compose(RxHelper.<BaseResponse<WeatherResponse>>io_main())
-                .subscribe(new RxSubscriber<BaseResponse<WeatherResponse>>() {
+                .subscribe(new HttpSubscriber<BaseResponse<WeatherResponse>>() {
                     @Override
                     public void onSuccess(BaseResponse<WeatherResponse> weatherResponseBaseResponse) {
                         mView.getWeatherSuccess(weatherResponseBaseResponse.getData());

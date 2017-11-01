@@ -36,6 +36,8 @@ public class BaseApplication extends Application {
 
     //初始化component
     private void initializeInjector() {
-        appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
     }
 }

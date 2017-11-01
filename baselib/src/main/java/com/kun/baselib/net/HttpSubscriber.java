@@ -11,7 +11,7 @@ import io.reactivex.subscribers.DisposableSubscriber;
 /**
  * 将成功之后的操作方法抽象出去，其他方法有默认实现
  */
-public abstract class RxSubscriber<T extends BaseResponse> extends DisposableSubscriber<T> {
+public abstract class HttpSubscriber<T extends BaseResponse> extends DisposableSubscriber<T> {
 
     private static final String TAG = "NET";
 

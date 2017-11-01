@@ -23,7 +23,11 @@ public class MainActivity extends BaseActivity implements MainContract.View{
     @Override
     protected void daggerInit() {
         //项目第一次打开会报错找不到类，必须点击Build->make project生成文件
-        DaggerMainComponent.builder().appComponent(MyApplication.getAppComponent()).mainModule(new MainModule(this,this)).build().inject(this);
+        DaggerMainComponent.builder()
+                .appComponent(MyApplication.getAppComponent())
+                .mainModule(new MainModule(this,this))
+                .build()
+                .inject(this);
     }
 
     @Override
