@@ -5,7 +5,9 @@ package com.kun.baselib.base;
  */
 
 public class BaseDataCache {
-    //这里可以存储缓存信息，如用户session等
+    /**
+     * 这里可以存储缓存信息，如用户session等
+     */
     private static BaseDataCache instance;
 
     public static BaseDataCache getInstance() {

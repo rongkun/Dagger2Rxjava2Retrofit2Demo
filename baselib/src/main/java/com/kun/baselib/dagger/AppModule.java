@@ -1,6 +1,7 @@
 package com.kun.baselib.dagger;
 
 import com.kun.baselib.base.BaseApplication;
+import com.kun.baselib.base.BaseDataCache;
 
 import javax.inject.Singleton;
 
@@ -24,4 +25,8 @@ public class AppModule {
     BaseApplication providesApplication() {
         return baseApplication;
     }
+
+    @Provides
+    @Singleton
+    BaseDataCache provideDataCache(){return BaseDataCache.getInstance();}
 }

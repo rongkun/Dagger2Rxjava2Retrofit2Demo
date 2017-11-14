@@ -8,6 +8,10 @@ import android.os.Handler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.kun.baselib.dagger.AppComponent;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
@@ -16,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by kun on 2017/4/10
  */
 
-public abstract class BaseActivity extends RxAppCompatActivity implements BaseSuperView{
+public abstract class BaseActivity extends RxAppCompatActivity implements BaseActivityView{
 
     protected Activity mActivity;
     protected Context mContext;
@@ -54,20 +58,29 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseSu
         }, 500);
     }
 
+    @Override
+    public LifecycleProvider<ActivityEvent> getLifecycleProvider() {
+        return this;
+    }
+
     /**
      * 页面跳转
-     * @param ActivityClass 跳转的Activity
+     * @param activityClass 跳转的Activity
      */
-    public void startActivity(Class ActivityClass) {
-        Intent intent = new Intent(this, ActivityClass);
+    public void startActivity(Class activityClass) {
+        Intent intent = new Intent(this, activityClass);
         mContext.startActivity(intent);
+    }
+
+    protected AppComponent getAppComponent(){
+        return BaseApplication.getAppComponent();
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
     @Override
-    public Context getmContext() {
+    public Context getContext() {
         return mContext;
     }
 }

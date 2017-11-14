@@ -2,6 +2,7 @@ package com.kun.baselib.dagger;
 
 
 import com.kun.baselib.base.BaseApplication;
+import com.kun.baselib.base.BaseDataCache;
 
 import javax.inject.Singleton;
 
@@ -18,4 +19,6 @@ public interface AppComponent {
     Retrofit provideRetrofit();
 
     BaseApplication providesApplication();
+
+    BaseDataCache provideDataCache();
 }

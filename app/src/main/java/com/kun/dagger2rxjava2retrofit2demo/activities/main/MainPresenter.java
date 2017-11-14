@@ -4,11 +4,10 @@ import com.kun.baselib.base.BaseDataCache;
 import com.kun.baselib.base.BaseResponse;
 import com.kun.baselib.net.HttpSubscriber;
 import com.kun.baselib.utils.RxHelper;
-import com.kun.dagger2rxjava2retrofit2demo.base.BasePresent;
+import com.kun.dagger2rxjava2retrofit2demo.base.AppBasePresent;
 import com.kun.dagger2rxjava2retrofit2demo.bean.WeatherResponse;
 import com.kun.dagger2rxjava2retrofit2demo.net.AppNetApi;
-import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.android.ActivityEvent;
+
 import javax.inject.Inject;
 
 /**
@@ -16,24 +15,22 @@ import javax.inject.Inject;
  * @date 2017/10/24
  */
 
-public class MainPresenter extends BasePresent<MainContract.View,ActivityEvent> implements MainContract.Present{
+public class MainPresenter extends AppBasePresent<MainContract.View> implements MainContract.Present{
     @Inject
-    public MainPresenter(MainContract.View view, LifecycleProvider<ActivityEvent> lifecycleProvider, AppNetApi api, BaseDataCache mDataCache) {
-        super(view, lifecycleProvider, api, mDataCache);
-    }
-    @Inject
-    void setPresenter(){
-        mView.setPresenter(this);
+    MainPresenter(MainContract.View view, AppNetApi api, BaseDataCache mDataCache) {
+        super(view, api, mDataCache);
     }
     @Override
     public void getWeather(String city) {
         mApi.getWeather(city)
-                .compose(lifecycleProvider.<BaseResponse<WeatherResponse>>bindToLifecycle())
+                .compose(mView.getLifecycleProvider().<BaseResponse<WeatherResponse>>bindToLifecycle())
                 .compose(RxHelper.<BaseResponse<WeatherResponse>>io_main())
                 .subscribe(new HttpSubscriber<BaseResponse<WeatherResponse>>() {
                     @Override
                     public void onSuccess(BaseResponse<WeatherResponse> weatherResponseBaseResponse) {
-                        mView.getWeatherSuccess(weatherResponseBaseResponse.getData());
+                        if (mView != null) {
+                            mView.getWeatherSuccess(weatherResponseBaseResponse.getData());
+                        }
                     }
                 });
     }

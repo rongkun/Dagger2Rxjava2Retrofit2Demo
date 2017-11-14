@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kun.baselib.utils.ToastUtil;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import butterknife.ButterKnife;
@@ -20,7 +22,7 @@ import butterknife.Unbinder;
  * Fragment 基类，抽取重复代码，继承了 RxFragment，便于管理 RxJava 生命周期
  * <p>
  */
-public abstract class BaseFragment extends RxFragment {
+public abstract class BaseFragment extends RxFragment implements BaseFragmentView{
     protected Context mContext;
     protected Activity mActivity;
     private Unbinder unbinder;
@@ -35,6 +37,11 @@ public abstract class BaseFragment extends RxFragment {
     public void startActivity(Class ActivityClass) {
         Intent intent = new Intent(mActivity, ActivityClass);
         mActivity.startActivity(intent);
+    }
+
+    @Override
+    public LifecycleProvider<FragmentEvent> getLifecycleProvider() {
+        return this;
     }
 
     @Nullable
