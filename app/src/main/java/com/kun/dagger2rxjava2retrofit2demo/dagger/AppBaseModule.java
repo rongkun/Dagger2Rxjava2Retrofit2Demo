@@ -1,7 +1,6 @@
-package com.kun.dagger2rxjava2retrofit2demo.base;
+package com.kun.dagger2rxjava2retrofit2demo.dagger;
 
 import com.kun.baselib.dagger.PerActivity;
-import com.kun.baselib.utils.RxHelper;
 import com.kun.dagger2rxjava2retrofit2demo.net.AppNetApi;
 
 import dagger.Module;
@@ -14,11 +13,6 @@ public class AppBaseModule {
     @Provides
     AppNetApi providesNetApi(Retrofit retrofit) {
         return retrofit.create(AppNetApi.class);
-    }
-    @PerActivity
-    @Provides
-    RxHelper provideRxUtils(){
-        return new RxHelper();
     }
 
 }

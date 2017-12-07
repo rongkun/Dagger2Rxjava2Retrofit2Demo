@@ -1,10 +1,9 @@
 package com.kun.dagger2rxjava2retrofit2demo.activities.main;
 
-import com.kun.baselib.base.BaseDataCache;
+import com.kun.baselib.base.BasePresenter;
 import com.kun.baselib.base.BaseResponse;
 import com.kun.baselib.net.HttpSubscriber;
 import com.kun.baselib.utils.RxHelper;
-import com.kun.dagger2rxjava2retrofit2demo.base.AppBasePresent;
 import com.kun.dagger2rxjava2retrofit2demo.bean.WeatherResponse;
 import com.kun.dagger2rxjava2retrofit2demo.net.AppNetApi;
 
@@ -15,11 +14,12 @@ import javax.inject.Inject;
  * @date 2017/10/24
  */
 
-public class MainPresenter extends AppBasePresent<MainContract.View> implements MainContract.Present{
+public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Present{
     @Inject
-    MainPresenter(MainContract.View view, AppNetApi api, BaseDataCache mDataCache) {
-        super(view, api, mDataCache);
+    MainPresenter() {
     }
+    @Inject
+    AppNetApi mApi;
     @Override
     public void getWeather(String city) {
         mApi.getWeather(city)

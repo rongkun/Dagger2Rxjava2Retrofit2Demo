@@ -1,6 +1,5 @@
 package com.kun.baselib.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,27 +13,29 @@ import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 
 /**
  * Created by kun on 2017/4/10
  */
 
-public abstract class BaseActivity extends RxAppCompatActivity implements BaseActivityView{
+public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatActivity implements BaseActivityView{
 
-    protected Activity mActivity;
+    @Inject
+    protected T mPresenter;
+
     protected Context mContext;
-    protected String Tag = "Activity";
+    protected final String TAG = "Activity";
 
     protected abstract void daggerInit();
-    protected abstract void viewInit();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(Tag, "CurrentActivity: " + getClass().getSimpleName());
+        Log.i(TAG, "CurrentActivity: " + getClass().getSimpleName());
         mContext = this;
-        mActivity = this;
     }
 
     @Override
@@ -43,7 +44,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseAc
         //绑定view
         ButterKnife.bind(this);
         daggerInit();
-        viewInit();
     }
 
     /**
@@ -75,12 +75,17 @@ public abstract class BaseActivity extends RxAppCompatActivity implements BaseAc
     protected AppComponent getAppComponent(){
         return BaseApplication.getAppComponent();
     }
+
+    @Override
+    public BaseActivity getActivity() {
+        return this;
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-    @Override
-    public Context getContext() {
-        return mContext;
+        if (mPresenter!=null) {
+            mPresenter.destroyView();
+        }
     }
 }
